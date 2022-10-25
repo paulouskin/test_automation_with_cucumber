@@ -23,14 +23,14 @@ public class EtsyPrivacyPolicySteps {
 
     //********************Hooks***********
 
-    @Before
+    @Before("@ui")
     public void scenarioSetUp() {
         logger.info("Setting up Chrome driver");
         WebDriverManager.chromedriver().setup();
     }
 
 
-    @After
+    @After("@ui")
     public void scenarioCleanUp() {
         logger.info("Closing web driver session");
         driver.quit();
@@ -56,6 +56,21 @@ public class EtsyPrivacyPolicySteps {
         etsyPage.updatePrivacyPolicy();
     }
 
+    @When("she enables site customization option in privacy policy settings")
+    public void sheEnablesSiteCustomizationOptionInPrivacyPolicySettings() {
+        etsyPage.enableSiteCustomisation();
+    }
+
+    @When("she enables personal advertising option in privacy policy settings")
+    public void sheEnablesPersonalAdvertisingOptionInPrivacyPolicySettings() {
+        etsyPage.enablePersonalAdvertising();
+    }
+
+    @When("she accepts privacy policy updates")
+    public void sheAcceptsPrivacyPolicyUpdates() {
+        etsyPage.acceptPolicyUpdate();
+    }
+
     //***********************Thens************************
     @Then("she can proceed with the shopping")
     public void she_can_proceed_with_the_shopping() {
@@ -76,5 +91,15 @@ public class EtsyPrivacyPolicySteps {
     @Then("cookie handling policy details is available")
     public void cookieHandlingPolicyDetailsIsAvailable() {
         Assertions.assertTrue(etsyPage.isCookieHandlingPolicyDetailsAvailable());
+    }
+
+    @Then("site customization option is available")
+    public void siteCustomizationOptionIsAvailable() {
+        Assertions.assertTrue(etsyPage.isPrivacyPolicyUpdateOptionsAvailable());
+    }
+
+    @Then("personal advertising option is available")
+    public void personalAdvertisingOptionIsAvailable() {
+        Assertions.assertTrue(etsyPage.isPrivacyPolicyUpdateOptionsAvailable());
     }
 }

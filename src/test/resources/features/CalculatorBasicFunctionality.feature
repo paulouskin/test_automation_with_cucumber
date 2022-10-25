@@ -1,3 +1,4 @@
+@calculator
 Feature: Verify basic calculator operations
 
   As a John from 5th grade

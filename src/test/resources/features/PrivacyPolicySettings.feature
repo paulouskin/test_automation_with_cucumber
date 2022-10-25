@@ -1,3 +1,4 @@
+@ui
 Feature: Verify privacy policy setting option
 
   As a Jane The Shopper

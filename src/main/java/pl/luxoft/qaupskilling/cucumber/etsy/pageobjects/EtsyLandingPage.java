@@ -26,7 +26,7 @@ public class EtsyLandingPage {
 
     public boolean isPossibleToProceedWithShopping() {
         privacyPolicyModal = new DefaultPrivacyPolicyModal(driver);
-        return privacyPolicyModal.isVisible();
+        return privacyPolicyModal.isNotVisible();
     }
 
     public void updatePrivacyPolicy() {
@@ -47,5 +47,20 @@ public class EtsyLandingPage {
     public boolean isCookieHandlingPolicyDetailsAvailable() {
         privacyPolicyModal = new DefaultPrivacyPolicyModal(driver);
         return privacyPolicyModal.isCookieHandlingPolicyDetailsAvailable();
+    }
+
+    public void enableSiteCustomisation() {
+        updatePolicyModal = new UpdatePrivacyPolicyModal(driver);
+        updatePolicyModal.enableSiteCustomisation();
+    }
+
+    public void enablePersonalAdvertising() {
+        updatePolicyModal = new UpdatePrivacyPolicyModal(driver);
+        updatePolicyModal.enablePersonalAdvertising();
+    }
+
+    public void acceptPolicyUpdate() {
+        updatePolicyModal = new UpdatePrivacyPolicyModal(driver);
+        updatePolicyModal.acceptPolicyChanges();
     }
 }

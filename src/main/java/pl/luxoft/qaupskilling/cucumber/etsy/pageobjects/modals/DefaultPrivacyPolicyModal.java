@@ -31,9 +31,9 @@ public class DefaultPrivacyPolicyModal {
         );
     }
 
-    public boolean isVisible() {
+    public boolean isNotVisible() {
         return wait.until(
-                ExpectedConditions.invisibilityOf(getAcceptButton())
+                ExpectedConditions.invisibilityOfElementLocated(By.xpath(ACCEPT_BUTTON))
         );
     }
 

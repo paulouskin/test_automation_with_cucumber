@@ -11,6 +11,7 @@ import java.time.Duration;
 public class UpdatePrivacyPolicyModal {
     private static final String PERSONAL_ADVERTISING_TOGGLE = "[for=third_party_consent]";
     private static final String SITE_CUSTOMIZATION_TOGGLE = "[for=personalization_consent]";
+    private static final String ACCEPT_CHANGES_BUTTON = "//*[@id='gdpr-privacy-settings']/div/div[3]/div[2]/div/div[3]/button";
     private final WebDriver driver;
     private WebDriverWait wait;
 
@@ -33,6 +34,24 @@ public class UpdatePrivacyPolicyModal {
     private WebElement getSiteCustomisationToggle() {
         return wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.cssSelector(SITE_CUSTOMIZATION_TOGGLE))
+        );
+    }
+
+    public void enableSiteCustomisation() {
+        getSiteCustomisationToggle().click();
+    }
+
+    public void enablePersonalAdvertising() {
+        getPersonalAdvertisingToggle().click();
+    }
+
+    public void acceptPolicyChanges() {
+        getAcceptChangesButton().click();
+    }
+
+    private WebElement getAcceptChangesButton() {
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath(ACCEPT_CHANGES_BUTTON))
         );
     }
 }
