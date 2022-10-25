@@ -38,11 +38,15 @@ public class EtsyPrivacyPolicySteps {
 
     //**********************Givens***************************
     @Given("{string} is on the Etsy landing page")
-    public void is_on_the_etsy_landing_page(String string) {
-
+    public void is_on_the_etsy_landing_page(String user) {
+        setupApplication(user);
         driver = new ChromeDriver();
         etsyPage = new EtsyLandingPage(driver);
         etsyPage.goTo();
+    }
+
+    private void setupApplication(String user) {
+        System.out.println("Setting up system depending on user " + user);
     }
 
     //*************Whens******************

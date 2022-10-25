@@ -5,36 +5,32 @@ Feature: Verify privacy policy setting option
   I want to configure privacy policy settings
   So that I can setup my further shopping experience
 
-  Scenario: Buyer should proceed with shopping with default privacy policy settings
+  Background:
     Given "Jane The Shopper" is on the Etsy landing page
+
+  Scenario: Buyer should proceed with shopping with default privacy policy settings
     When she accept default privacy policy
     Then she can proceed with the shopping
 
   Scenario: Buyer should update default privacy policy settings
-    Given "Jane The Shopper" is on the Etsy landing page
     When she goes to the privacy policy settings
     Then different privacy policy update options are available
 
   Scenario: Initial information for privacy policy settings should be visible
-    Given "Jane The Shopper" is on the Etsy landing page
     Then initial privacy policy information is visible
 
   Scenario: Cookie handling policy details should be available
-    Given "Jane The Shopper" is on the Etsy landing page
     Then cookie handling policy details is available
 
   Scenario: Site customization settings should be available
-    Given "Jane The Shopper" is on the Etsy landing page
     When she goes to the privacy policy settings
     Then site customization option is available
 
   Scenario: Personal advertising settings should be available
-    Given "Jane The Shopper" is on the Etsy landing page
     When she goes to the privacy policy settings
     Then personal advertising option is available
 
   Scenario: Buyer should proceed with shopping after privacy policy update
-    Given "Jane The Shopper" is on the Etsy landing page
     When she goes to the privacy policy settings
     And she enables site customization option in privacy policy settings
     And she enables personal advertising option in privacy policy settings
