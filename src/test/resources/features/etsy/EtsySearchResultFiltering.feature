@@ -1,3 +1,4 @@
+@to_implement
 Feature: Search results filtering feature verification
 
   Scenario: Should filter items by free shipping option
