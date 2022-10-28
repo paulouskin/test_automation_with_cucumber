@@ -1,11 +1,11 @@
-@ui
+@on-hold
 Feature: Verify privacy policy setting option
 
   As a Jane The Shopper
   I want to configure privacy policy settings
   So that I can setup my further shopping experience
 
-  Background:
+  Background: Going to the landing page
     Given "Jane The Shopper" is on the Etsy landing page
 
   Scenario: Buyer should proceed with shopping with default privacy policy settings

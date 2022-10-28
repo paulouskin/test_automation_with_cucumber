@@ -1,10 +1,11 @@
-package pl.luxoft.qaupskilling.cucumber.stepdefs;
+package pl.luxoft.qaupskilling.cucumber.stepdefs.examples;
 
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
+import pl.luxoft.qaupskilling.cucumber.enums.OurColor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

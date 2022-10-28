@@ -7,11 +7,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.luxoft.qaupskilling.cucumber.etsy.pageobjects.EmptySearchResultPage;
 import pl.luxoft.qaupskilling.cucumber.etsy.pageobjects.EtsyLandingPage;
+import pl.luxoft.qaupskilling.cucumber.etsy.pageobjects.SearchResultPage;
 
 public class EtsyPrivacyPolicySteps {
 
@@ -19,6 +22,8 @@ public class EtsyPrivacyPolicySteps {
 
     EtsyLandingPage etsyPage;
     WebDriver driver;
+
+    String searchQuery;
 
 
     //********************Hooks***********
@@ -50,12 +55,12 @@ public class EtsyPrivacyPolicySteps {
     }
 
     //*************Whens******************
-    @When("she accept default privacy policy")
+    @When("(s)he accept default privacy policy")
     public void she_accept_default_privacy_policy() {
         etsyPage.acceptDefaultPrivacyPolicy();
     }
 
-    @When("she goes to the privacy policy settings")
+    @When("(s)he goes to the privacy policy settings")
     public void she_goes_to_the_privacy_policy_settings() {
         etsyPage.updatePrivacyPolicy();
     }
@@ -105,5 +110,21 @@ public class EtsyPrivacyPolicySteps {
     @Then("personal advertising option is available")
     public void personalAdvertisingOptionIsAvailable() {
         Assertions.assertTrue(etsyPage.isPrivacyPolicyUpdateOptionsAvailable());
+    }
+
+    @When("(s)he search for {string}")
+    public void heSearchFor(String query) {
+        searchQuery = query;
+        etsyPage.searchFor(query);
+    }
+
+    @Then("the {string} result page have been displayed")
+    public void theResultPageHaveBeenDisplayed(String result) {
+        boolean isOnTheRightResultPage = switch (result){
+            case "success" -> new SearchResultPage(driver).isSearchSuccessfulFor(searchQuery);
+            case "error" -> new EmptySearchResultPage(driver).isInvalidSearchResult();
+            default -> throw new InvalidArgumentException("Wrong argument for the step");
+        };
+        Assertions.assertTrue(isOnTheRightResultPage);
     }
 }

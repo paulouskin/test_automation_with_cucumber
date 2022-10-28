@@ -1,4 +1,4 @@
-package pl.luxoft.qaupskilling.cucumber.stepdefs;
+package pl.luxoft.qaupskilling.cucumber.enums;
 
 public enum OurColor {
     BLUE,
