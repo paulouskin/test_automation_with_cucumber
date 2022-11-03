@@ -7,6 +7,7 @@ Feature: Basic endpoint work verification for the User service
 
   Background: Check if service is up and running
     Given user service is up and running
+    And I configure request appropriately
 
   Scenario: Service should return list of users
     When we fetch all users from the page 2
