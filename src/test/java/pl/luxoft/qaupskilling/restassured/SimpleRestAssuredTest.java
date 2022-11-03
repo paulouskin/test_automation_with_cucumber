@@ -16,7 +16,7 @@ public class SimpleRestAssuredTest {
             contentType(ContentType.JSON).params("page","2").
         when().
                 get("https://reqres.in/api/users").
-        then().log().all().
+        then().
                 assertThat().body("data[0].email", is("michael.lawson@reqres.in"));
 
     }
@@ -27,7 +27,7 @@ public class SimpleRestAssuredTest {
             contentType(ContentType.JSON).params("page","2").
         when().
                 get("https://reqres.in/api/users").
-        then().log().all().extract().response().jsonPath().getString("data[0].email");
+        then().extract().response().jsonPath().getString("data[0].email");
         System.out.println(email);
 
     }

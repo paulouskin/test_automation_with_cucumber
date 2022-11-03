@@ -10,9 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.luxoft.qaupskilling.cucumber.reqres.dto.FetchUserDTO;
 import pl.luxoft.qaupskilling.cucumber.reqres.dto.FetchUsersDTO;
+import pl.luxoft.qaupskilling.cucumber.reqres.dto.UpsertUserRequestDTO;
 import pl.luxoft.qaupskilling.cucumber.reqres.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -59,6 +61,59 @@ public class ReqresSteps {
     public void user_has_an_email_address(String expectedEmail) {
         User michael = response.body().as(FetchUserDTO.class).getData();
         Assertions.assertEquals(expectedEmail, michael.getEmail());
-
     }
+
+    @When("we create new user with the following parameters:")
+    public void we_create_new_user_with_the_following_parameters(io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> users = dataTable.asMaps();
+        UpsertUserRequestDTO userData = getPostUserRequestDTOFromMap(users.get(0));
+        response = given()
+                    .contentType(ContentType.JSON)
+                    .body(userData)
+                    //.body(users.get(0))
+                .when()
+                    .post("https://reqres.in/api/users")
+                .then().extract().response();
+    }
+
+    private UpsertUserRequestDTO getPostUserRequestDTOFromMap(Map<String, String> userAsMap) {
+        return new UpsertUserRequestDTO(userAsMap.get("name"), userAsMap.get("job") );
+    }
+
+    @Then("user {string} is returned")
+    public void user_id_is_returned(String param) {
+        String expectedParameter = response.jsonPath().getString(param);
+        Assertions.assertNotNull(expectedParameter);
+    }
+
+    @When("we update the user with id {int} with following information:")
+    public void we_update_the_user_with_id_with_following_information(Integer userId, io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> users = dataTable.asMaps();
+        UpsertUserRequestDTO userData = getPostUserRequestDTOFromMap(users.get(0));
+        response = given()
+                    .contentType(ContentType.JSON)
+                    .pathParam("userId", userId)
+                    .body(userData)
+                .when()
+                    .put("https://reqres.in/api/users/{userId}")
+                .then().extract().response();
+    }
+
+    @When("we delete the user with id {int}")
+    public void we_delete_the_user_with_id(Integer userId) {
+        response = given()
+                    .contentType(ContentType.JSON)
+                    .pathParam("userId", userId)
+                .when()
+                    .delete("https://reqres.in/api/users/{userId}")
+                .then()
+                .extract().response();
+    }
+
+    @Then("operation completed successfully")
+    public void operation_completed_successfully() {
+        int statusCode = response.statusCode();
+        Assertions.assertEquals(204, statusCode);
+    }
+
 }

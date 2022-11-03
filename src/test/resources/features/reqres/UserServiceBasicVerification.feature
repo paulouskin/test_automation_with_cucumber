@@ -20,14 +20,14 @@ Feature: Basic endpoint work verification for the User service
     When we create new user with the following parameters:
       | name     | job                      |
       | John Doe | Test Automation Engineer |
-    Then user id is returned
+    Then user "id" is returned
 
   Scenario: Service should update user data
     When we update the user with id 10 with following information:
       | name     | job                  |
       | Jane Doe | Test Automation Lead |
-    Then user will have new job "Test Automation Lead"
+    Then user "updatedAt" is returned
 
   Scenario: Service should delete user from system
-    When we delete the user with id "2"
-    Then deleted user email "janet.weaver@reqres.in" have been returned
+    When we delete the user with id 2
+    Then operation completed successfully
